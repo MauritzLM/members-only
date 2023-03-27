@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <header><%- include('./partials/header') %></header>
+    <main>
+        <h1>Sign up form</h1>
+
+        <form action="">
+            <!-- first name -->
+            <div>
+                <label for="firstname">firstname</label>
+                <input type="text" name="firstname" required>
+            </div>
+
+            <!-- last name -->
+            <div>
+                <label for="lastname">lastname</label>
+                <input type="text" name="lastname" required>
+            </div>
+
+            <!-- username -->
+            <div>
+                <label for="username">username</label>
+                <input type="text" name="username" required>
+            </div>
+
+            <!-- password -->
+            <div>
+                <label for="password">password</label>
+                <input type="password" required>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
