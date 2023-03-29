@@ -11,31 +11,47 @@
     <main>
         <h1>Sign up form</h1>
 
-        <form action="">
+        <form action="" method="post" novalidate>
             <!-- first name -->
             <div>
                 <label for="firstname">firstname</label>
-                <input type="text" name="firstname" required>
+                <input type="text" name="firstname" value="<%= (typeof user !== 'undefined' ? user.first_name : '') %>"
+                    required>
             </div>
 
             <!-- last name -->
             <div>
                 <label for="lastname">lastname</label>
-                <input type="text" name="lastname" required>
+                <input type="text" name="lastname" value="<%= (typeof user !== 'undefined' ? user.last_name : '') %>"
+                    required>
             </div>
 
             <!-- username -->
             <div>
-                <label for="username">username</label>
-                <input type="text" name="username" required>
+                <label for="username">enter your email</label>
+                <input type="email" name="username" value="<%= (typeof user !== 'undefined' ? user.username : '') %>"
+                    required>
             </div>
 
             <!-- password -->
             <div>
                 <label for="password">password</label>
-                <input type="password" required>
+                <input type="password" name="password" required>
             </div>
+
+            <button type="submit">Join</button>
         </form>
+
+        <!-- validation errors -->
+        <% if(typeof errors !=='undefined' ) { %>
+            <ul>
+                <% errors.forEach(error=> { %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
     </main>
 </body>
 
