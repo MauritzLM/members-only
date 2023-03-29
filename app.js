@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
@@ -8,8 +8,8 @@ const mongoose = require("mongoose");
 const routes = require("./routes/routes");
 
 // Connect DB
-require('dotenv').config();
-mongoose.set('strictQuery', false);
+require("dotenv").config();
+mongoose.set("strictQuery", false);
 const mongoDB = process.env.MONGODB_LOGIN;
 
 main().catch(err => console.log(err));
@@ -28,9 +28,14 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use('/', routes);
+app.use("/", routes);
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 
 app.listen(3000);
