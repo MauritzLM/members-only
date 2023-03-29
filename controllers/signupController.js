@@ -1,11 +1,5 @@
 const User = require("../models/user");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const { body, validationResult } = require('express-validator');
-
-// setup strategy
-
 
 // sign up form GET
 exports.signupFormGet = (req, res) => {
