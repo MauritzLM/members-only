@@ -3,6 +3,7 @@ const router = express.Router();
 
 const indexController = require("../controllers/indexController");
 const signupController = require("../controllers/signupController");
+const loginController = require("../controllers/loginController");
 
 // Homepage
 router.get("/", indexController.getHomePage);
@@ -15,7 +16,8 @@ router.get("/signup", signupController.signupFormGet);
 router.post("/signup", signupController.signupFormPost);
 
 // Login form
-
+//GET
+router.get("/login", loginController.loginFormGet);
 
 // join the club
 
