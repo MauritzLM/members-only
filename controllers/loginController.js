@@ -9,9 +9,28 @@ exports.loginFormGet = (req, res) => {
 }
 
 // POST
-exports.loginFormPost = (req, res, next) => {
+exports.loginFormPost = [
     passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/"
+        failureRedirect: "/login",
+        failureMessage: true
+    }), (req, res) => {
+        res.redirect("/");
+    }
+];
+
+
+// logout
+// GET
+exports.logoutGet = (req, res) => {
+    res.render("logout", { title: "Logout" });
+}
+
+//POSt
+exports.logoutPost = function (req, res, next) {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
     })
 }
