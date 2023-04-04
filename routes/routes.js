@@ -19,6 +19,16 @@ router.post("/signup", signupController.signupFormPost);
 //GET
 router.get("/login", loginController.loginFormGet);
 
+//POST
+router.post("/login", loginController.loginFormPost);
+
+// Logout
+// GET
+router.get("/logout", loginController.logoutGet);
+
+// POST
+router.post("/logout", loginController.logoutPost);
+
 // join the club
 
 
