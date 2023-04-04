@@ -1,9 +1,12 @@
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
+const User = require("./models/user");
+const bcrypt = require("bcryptjs");
 
 const routes = require("./routes/routes");
 
@@ -28,9 +31,13 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", routes);
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true })); // This is the basic express session({..}) initialization.
+app.use(passport.initialize());// init passport on every route call.
+app.use(passport.session()); // allow passport to use "express-session".
+app.use(express.urlencoded({ extended: false }));
 
 // authentication strategy
 passport.use(
@@ -69,13 +76,14 @@ passport.deserializeUser(async function (id, done) {
     };
 });
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
+// local variable for user
+app.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
 
-
-
+// routes
+app.use("/", routes);
 
 app.listen(3000);
 
