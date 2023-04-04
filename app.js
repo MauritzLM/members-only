@@ -76,9 +76,10 @@ passport.deserializeUser(async function (id, done) {
     };
 });
 
-// local variable for user
+// local variable for user and error messages
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.messages = req.session.messages;
     next();
 });
 
