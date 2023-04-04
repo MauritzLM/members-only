@@ -3,7 +3,9 @@
 
 <head>
     <%- include('./partials/head') %>
-        <title>Document</title>
+        <title>
+            <%= title %>
+        </title>
 </head>
 
 <body>
@@ -12,17 +14,26 @@
         <h1>Login</h1>
         <form action="" method="post">
             <div>
-                <label for="login_username">Enter username</label>
-                <input type="text" name="login_username" required>
+                <label for="username">Enter username</label>
+                <input type="text" name="username">
             </div>
 
             <div>
-                <label for="login_password">Enter password</label>
-                <input type="text" name="login_password" required>
+                <label for="password">Enter password</label>
+                <input type="password" name="password">
             </div>
 
             <button type="submit">Login</button>
         </form>
+
+
+        <!-- Login failure message -->
+        <% if(typeof locals.messages !=='undefined' ) { %>
+            <p>
+                <% let keys=Object.keys(locals.messages) %>
+                    <%= locals.messages[keys.length - 1] %>
+            </p>
+            <% } %>
     </main>
 </body>
 
