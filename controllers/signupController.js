@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require("bcryptjs")
 const { body, validationResult } = require('express-validator');
 
 // sign up form GET
@@ -21,7 +22,7 @@ exports.signupFormPost = [
         .isEmail()
         .normalizeEmail()
         .escape(),
-    body("password", "please enter a password")
+    body("password", "password must at least be 8 characters")
         .isLength({ min: 8 })
         .trim()
         .escape(),
@@ -30,30 +31,36 @@ exports.signupFormPost = [
         // errors
         const errors = validationResult(req);
 
-        const user = new User({
-            first_name: req.body.firstname,
-            last_name: req.body.lastname,
-            username: req.body.username,
-            password: req.body.password,
-            membership_status: false
-        });
+        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+            // if error
+            if (err) {
+                return next(err);
+            }
+            // create new user
+            try {
+                const user = new User({
+                    first_name: req.body.firstname,
+                    last_name: req.body.lastname,
+                    username: req.body.username,
+                    password: hashedPassword,
+                    membership_status: false
+                });
 
-        if (!errors.isEmpty()) {
-            res.render("signup_form", {
-                title: "Sign up",
-                user,
-                errors: errors.array()
-            });
-            // return if there are errors
-            return;
-        }
-        // create new user
-        try {
-            const result = await user.save();
-            res.redirect('/');
-        }
-        catch (err) {
-            return next(err);
-        }
+                if (!errors.isEmpty()) {
+                    res.render("signup_form", {
+                        title: "Sign up",
+                        user,
+                        errors: errors.array()
+                    });
+                    // return if there are validation errors
+                    return;
+                }
+                const result = await user.save();
+                res.redirect('/');
+            }
+            catch (err) {
+                return next(err);
+            }
+        });
     }
 ];
