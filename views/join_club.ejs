@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <header><%- include('./partials/header') %></header>
+    <main>
+        <% if (typeof locals.currentUser !=='undefined' ) { %>
+            <!-- Check if already a member -->
+            <% if(locals.currentUser.membership_status) { %>
+                <h1>You are already a member!</h1>
+                <p>return to the <a href="/">Homepage</a></p>
+
+                <!-- Display question to join -->
+                <% } else { %>
+                    <h1>Answer the question correctly to join.</h1>
+
+                    <form action="" method="post">
+                        <div>
+                            <label for="answer">Where is the Masters played?</label>
+                            <input type="text" name="answer">
+
+                            <input type="hidden" name="userid" value="<%= locals.currentUser._id %>">
+                        </div>
+                        <button>Submit</button>
+                    </form>
+                    <% } %>
+
+                        <!-- If not logged in -->
+                        <% } else { %>
+                            <h1>Please <a href="/login">login</a> to view this page.</h1>
+                            <% }%>
+
+                                <!-- Errors/Wrong answer  -->
+                                <% if(typeof errors !=='undefined' ) { %>
+                                    <ul>
+                                        <% errors.forEach(error=> { %>
+                                            <li>
+                                                <%= error.msg %>
+                                            </li>
+                                            <% }) %>
+                                    </ul>
+
+                                    <% } %>
+
+    </main>
+</body>
+
+</html>

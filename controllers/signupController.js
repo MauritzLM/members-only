@@ -64,3 +64,42 @@ exports.signupFormPost = [
         });
     }
 ];
+
+// Become a member GET
+exports.joinclubGet = (req, res) => {
+    res.render("join_club", { title: "Join the members club" });
+};
+
+// Become a member POST
+exports.joinclubPost = [
+    // validate & sanitize
+    body("answer")
+        .custom((value => {
+            if (value !== 'Augusta National') {
+                throw new Error('Wrong Answer!');
+            }
+            return true;
+        }))
+        .trim()
+        .escape(),
+    async function (req, res, next) {
+        // Errors 
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render("join_club", {
+                title: "Join the members club",
+                errors: errors.array()
+            })
+            return;
+        }
+        // find User and change membership status
+        try {
+            await User.findByIdAndUpdate(req.body.userid, { membership_status: true }, {});
+            res.render("index");
+        }
+        catch (err) {
+            return next(err);
+        }
+    }
+];
