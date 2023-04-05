@@ -11,29 +11,37 @@
 <body>
     <header><%- include('./partials/header') %></header>
     <main>
-        <h1>Login</h1>
-        <form action="" method="post">
-            <div>
-                <label for="username">Enter username</label>
-                <input type="text" name="username">
-            </div>
+        <!-- check if already logged in* -->
+        <% if(typeof locals.currentUser !=='undefined' ) { %>
+            <h1>You are already logged in!</h1>
+            <p>return to <a href="/">Homepage</a></p>
+            <% } else { %>
+                <h1>Login</h1>
+                <form action="" method="post">
+                    <div>
+                        <label for="username">Enter username</label>
+                        <input type="text" name="username">
+                    </div>
 
-            <div>
-                <label for="password">Enter password</label>
-                <input type="password" name="password">
-            </div>
+                    <div>
+                        <label for="password">Enter password</label>
+                        <input type="password" name="password">
+                    </div>
 
-            <button type="submit">Login</button>
-        </form>
+                    <button type="submit">Login</button>
+                </form>
 
 
-        <!-- Login failure message -->
-        <% if(typeof locals.messages !=='undefined' ) { %>
-            <p>
-                <% let keys=Object.keys(locals.messages) %>
-                    <%= locals.messages[keys.length - 1] %>
-            </p>
-            <% } %>
+                <!-- Login failure message -->
+                <% if(typeof locals.messages !=='undefined' ) { %>
+                    <p>
+                        <% let keys=Object.keys(locals.messages) %>
+                            <%= locals.messages[keys.length - 1] %>
+                    </p>
+                    <% } %>
+                        <% } %>
+
+
     </main>
 </body>
 
