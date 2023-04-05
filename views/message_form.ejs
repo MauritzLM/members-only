@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Document</title>
+</head>
+
+<body>
+    <header><%- include('./partials/header') %></header>
+    <main>
+        <!-- Display message form to logged in user -->
+        <% if (typeof locals.currentUser !=='undefined' ) { %>
+            <h1>What's on your mind?</h1>
+            <form action="" method="post">
+                <div>
+                    <label for="message"></label>
+                    <input type="text" name="message">
+                </div>
+
+                <input type="hidden" name="userid" value="<%= locals.currentUser._id %>">
+                <button>Post</button>
+            </form>
+            <% } %>
+    </main>
+
+</body>
+
+</html>
