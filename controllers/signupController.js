@@ -31,6 +31,7 @@ exports.signupFormPost = [
         // errors
         const errors = validationResult(req);
 
+        // hash password with bcrypt
         bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
             // if error
             if (err) {
@@ -97,6 +98,44 @@ exports.joinclubPost = [
         try {
             await User.findByIdAndUpdate(req.body.userid, { membership_status: true }, {});
             res.render("index");
+        }
+        catch (err) {
+            return next(err);
+        }
+    }
+];
+
+//admin page GET
+exports.adminGet = (req, res) => {
+    res.render("admin", { title: "Admin" });
+}
+
+//admin page POST
+exports.adminPost = [
+    // validate and sanitize
+    body("admin-code")
+        .custom((value => {
+            if (value !== '7524') {
+                throw new Error("Incorrect code")
+            }
+            return true
+        }))
+        .trim()
+        .escape(),
+    async function (req, res, next) {
+        //Errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render("admin", {
+                title: "Admin",
+                errors: errors.array()
+            });
+            return;
+        }
+        try {
+            await User.findByIdAndUpdate(req.body.userid, { admin: true }, {});
+            res.redirect("/admin");
         }
         catch (err) {
             return next(err);

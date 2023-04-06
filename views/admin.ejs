@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <header><%- include('./partials/header') %></header>
+    <main>
+        <!-- check if user is a member -->
+        <% if(typeof locals.currentUser !=='undefined' ) { %>
+            <% if(locals.currentUser.admin) { %>
+                <h1>Welcome admin</h1>
+
+                <!-- member can enter secret code to become admin -->
+                <% } else if(locals.currentUser.membership_status) { %>
+                    <h1>Welcome <%= locals.currentUser.first_name %> are you in interested in being an admin? Enter the
+                            secret code.</h1>
+                    <form action="" method="post">
+                        <div>
+                            <label for="admin-code">What is the secret code?</label>
+                            <input type="text" name="admin-code">
+
+                            <input type="hidden" name="userid" value="<%= locals.currentUser._id %>">
+                        </div>
+                        <button>submit</button>
+                    </form>
+                    <!-- User but not member or admin -->
+                    <% } else { %>
+                        <h1>Interested in being an admin? Become a <a href="/joinclub">member</a> first.</h1>
+                        <% } %>
+                            <% } else { %>
+                                <h1>Access denied</h1>
+                                <% } %>
+
+                                    <!-- Errors -->
+                                    <% if(typeof errors !=='undefined' ) { %>
+                                        <ul>
+                                            <% errors.forEach(error=> { %>
+                                                <li>
+                                                    <%= error.msg %>
+                                                </li>
+                                                <% }) %>
+                                        </ul>
+                                        <% } %>
+    </main>
+</body>
+
+</html>
