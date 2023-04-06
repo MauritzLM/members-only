@@ -16,3 +16,14 @@ exports.getHomePage = async function (req, res, next) {
         return next(err);
     }
 }
+
+// delete message
+exports.messageDeletePost = async function (req, res, next) {
+    try {
+        await Message.findByIdAndDelete(req.body.messageid);
+        res.redirect("/");
+    }
+    catch (err) {
+        return next(err);
+    }
+}
