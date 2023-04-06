@@ -28,9 +28,9 @@
                                 <!-- if member display author and time -->
                                 <% if(typeof locals.currentUser !=='undefined' ) { %>
                                     <% if(locals.currentUser.membership_status===true ) { %>
-                                        <p>
-                                            <%= message.author.first_name %> <span>
-                                                    <%= message.timestamp %>
+                                        <p class="msg-author">
+                                            <%= message.author.first_name %> <span class="msg-date">
+                                                    <%= message.dateFormatted %>
                                                 </span>
                                         </p>
                                         <% } %>
