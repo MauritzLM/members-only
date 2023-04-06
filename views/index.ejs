@@ -18,6 +18,7 @@
             <% } else { %>
                 <h1>Welcome to my member page</h1>
                 <% } %>
+
                     <!-- Display messages -->
                     <% if(messages.length> 0) { %>
                         <% messages.forEach(message=> { %>
@@ -32,15 +33,21 @@
                                             <%= message.author.first_name %> <span class="msg-date">
                                                     <%= message.dateFormatted %>
                                                 </span>
+
+                                                <!-- If admin display delete button -->
+                                                <% if(locals.currentUser.admin) { %>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" name="messageid"
+                                                            value="<%= message._id %>">
+                                                        <button type="submit" class="delete">Delete</button>
+                                                    </form>
+                                                    <% } %>
                                         </p>
                                         <% } %>
                                             <% } %>
-                                                <!-- Display delete button if admin* -->
+                                                <% }) %>
                             </div>
-
-                            <% }) %>
-
-                                <% } %>
+                            <% } %>
     </main>
 
 </body>
