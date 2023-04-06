@@ -6,42 +6,54 @@ const signupController = require("../controllers/signupController");
 const loginController = require("../controllers/loginController");
 const messageController = require("../controllers/messageController");
 
-// Homepage
+// HOMEPAGE
 router.get("/", indexController.getHomePage);
 
-// Sign up form
+// DELETE message
+router.post("/", indexController.messageDeletePost);
+
+// SIGN UP form
 // GET
 router.get("/signup", signupController.signupFormGet);
 
 //POST
 router.post("/signup", signupController.signupFormPost);
 
-// Login form
+// LOGIN forM
 //GET
 router.get("/login", loginController.loginFormGet);
 
 //POST
 router.post("/login", loginController.loginFormPost);
 
-// Logout
+// LOGOUT
 // GET
 router.get("/logout", loginController.logoutGet);
 
 // POST
 router.post("/logout", loginController.logoutPost);
 
-// join the club
+// JOIN THE CLUB
 //GET
 router.get("/joinclub", signupController.joinclubGet);
 
 //POST
 router.post("/joinclub", signupController.joinclubPost);
 
-// message form
+// MESSAGE form
 //GET
 router.get("/message", messageController.messageFormGet);
 
 //POST
 router.post("/message", messageController.messageFormPost);
+
+// ADMIN page
+//GET
+router.get("/admin", signupController.adminGet);
+
+//POST
+router.post("/admin", signupController.adminPost);
+
+
 
 module.exports = router;
