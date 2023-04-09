@@ -2,6 +2,8 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs")
 const { body, validationResult } = require('express-validator');
 
+require("dotenv").config();
+
 // sign up form GET
 exports.signupFormGet = (req, res) => {
     res.render("signup_form", { title: "Sign up" })
@@ -76,7 +78,7 @@ exports.joinclubPost = [
     // validate & sanitize
     body("answer")
         .custom((value => {
-            if (value !== 'Augusta National') {
+            if (value !== process.env.MEMBERS_JOIN) {
                 throw new Error('Wrong Answer!');
             }
             return true;
@@ -97,7 +99,7 @@ exports.joinclubPost = [
         // find User and change membership status
         try {
             await User.findByIdAndUpdate(req.body.userid, { membership_status: true }, {});
-            res.render("index");
+            res.redirect("/");
         }
         catch (err) {
             return next(err);
@@ -115,7 +117,7 @@ exports.adminPost = [
     // validate and sanitize
     body("admin-code")
         .custom((value => {
-            if (value !== '7524') {
+            if (value !== process.env.ADMIN_CODE) {
                 throw new Error("Incorrect code")
             }
             return true
