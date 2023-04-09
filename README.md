@@ -2,6 +2,8 @@
 
 This is a project from the [Odin project](https://www.theodinproject.com/paths).
 
+I really enjoyed working on this project, although it took me a while to understand how authentication and sessions work.
+
 ## Overview
 
 The objective of this project is to practice authentication aswell as database skills in express.
@@ -21,8 +23,10 @@ Users can:
 - PassportJS for authentication
 - bcryptjs
 
+### screenshots
+
 
 ### helpful links
 
-[NodeJS and passport authentication atrticle](https://medium.com/@prashantramnyc/node-js-with-passport-authentication-simplified-76ca65ee91e5)
+[NodeJS and passport authentication article](https://medium.com/@prashantramnyc/node-js-with-passport-authentication-simplified-76ca65ee91e5)
 
