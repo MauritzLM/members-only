@@ -24,28 +24,34 @@
                         <% if(messages.length> 0) { %>
                             <% messages.forEach(message=> { %>
                                 <div class="message">
-                                    <p>
-                                        <%- message.content %>
-                                    </p>
+
                                     <!-- if member display author and time -->
                                     <% if(typeof locals.currentUser !=='undefined' ) { %>
                                         <% if(locals.currentUser.membership_status===true ) { %>
                                             <p class="msg-author">
-                                                <%= message.author.first_name %> <span class="msg-date">
-                                                        <%= message.dateFormatted %>
-                                                    </span>
-
-                                                    <!-- If admin display delete button -->
-                                                    <% if(locals.currentUser.admin) { %>
-                                                        <form action="" method="post">
-                                                            <input type="hidden" name="messageid"
-                                                                value="<%= message._id %>">
-                                                            <button type="submit" class="delete">Delete</button>
-                                                        </form>
-                                                        <% } %>
+                                                <span>
+                                                    <%= message.author.first_name %>
+                                                </span> says:
                                             </p>
-                                            <% } %>
+                                            <p class="msg-date">
+                                                <%= message.dateFormatted %>
+                                            </p>
+
+                                            <!-- If admin display delete button -->
+                                            <% if(locals.currentUser.admin) { %>
+                                                <form action="" method="post">
+                                                    <input type="hidden" name="messageid" value="<%= message._id %>">
+                                                    <button type="submit" class="delete">Delete</button>
+                                                </form>
                                                 <% } %>
+
+                                                    <% } %>
+                                                        <% } %>
+                                                            <!-- Add message content -->
+                                                            <p class="msg-content">
+                                                                <%- message.content %>
+                                                            </p>
+
                                 </div>
                                 <% }) %>
 
