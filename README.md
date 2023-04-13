@@ -25,7 +25,7 @@ Users can:
 
 ### screenshots
 
-(./public/screenshot.png)
+![screenshot](./public/screenshot.png)
 
 ### helpful links
 
