@@ -25,7 +25,9 @@ Users can:
 
 ### screenshots
 
-![screenshot](./public/screenshot.png)
+![screenshot-admin](./public/screenshot-admin.png)
+![screenshot-user](./public/screenshot-user.png)
+![screenshot-signup](./public/screenshot-signup.png)
 
 ### helpful links
 
