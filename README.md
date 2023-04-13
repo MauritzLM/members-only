@@ -25,6 +25,7 @@ Users can:
 
 ### screenshots
 
+(./public/screenshot.png)
 
 ### helpful links
 
